@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Infrench</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Merriweather&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+      /* Custom Animations */
+      @keyframes gradientBackground {
+        0% {
+          background-position: 0% 50%;
+        }
+        50% {
+          background-position: 100% 50%;
+        }
+        100% {
+          background-position: 0% 50%;
+        }
+      }
+
+      @keyframes fadeInUp {
+        from {
+          opacity: 0;
+          transform: translateY(100%);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes pulse {
+        0% {
+          transform: scale(1);
+          opacity: 1;
+        }
+        50% {
+          transform: scale(1.05);
+          opacity: 0.7;
+        }
+        100% {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+
+      /* General Styles */
+      body {
+        font-family: "Merriweather", serif;
+        overflow-x: hidden;
+        background: linear-gradient(-45deg, #333399, #ff00cc, #333399, #ff00cc);
+        background-size: 400% 400%;
+        animation: gradientBackground 15s ease infinite;
+      }
+
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        font-family: "Poppins", sans-serif;
+      }
+
+      /* Header Styles */
+      header {
+        backdrop-filter: blur(10px);
+        background-color: rgba(0, 0, 0, 0.6);
+      }
+
+      /* Button Styles */
+      .btn-glow {
+        box-shadow: 0 4px 20px rgba(255, 0, 204, 0.7);
+        transition: transform 0.3s ease, box-shadow 0.3s ease;
+      }
+
+      .btn-glow:hover {
+        transform: scale(1.1);
+        box-shadow: 0 6px 30px rgba(255, 0, 204, 0.9);
+      }
+
+      /* Section Styles */
+      section {
+        animation: fadeInUp 1.5s ease-out;
+      }
+
+      .text-gradient {
+        background: linear-gradient(to right, #ff00cc, #333399);
+        background-clip: text;
+        color: transparent;
+        animation: pulse 2s infinite;
+      }
+
+      .text-shadow {
+        text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+      }
+
+      /* Video Styles */
+      video {
+        border: 3px solid rgba(255, 255, 255, 0.3);
+        transition: transform 0.3s ease, border-color 0.3s ease;
+      }
+
+      video:hover {
+        transform: scale(1.05);
+        border-color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* Footer Styles */
+      footer {
+        background: linear-gradient(135deg, #333399, #ff00cc);
+        background-size: 200% 200%;
+        animation: gradientBackground 20s ease infinite;
+        color: white;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- Header -->
+    <header class="bg-opacity-50 p-6 flex justify-center items-center">
+      <img
+        src="{{ url_for('static', filename='images/file.png') }}"
+        alt="Infrench Logo"
+        class="h-16 transition-transform duration-300 hover:scale-125"
+      />
+      <h1 class="text-5xl font-bold ml-4 text-gradient text-shadow">
+        Infrench
+      </h1>
+    </header>
+
+    <!-- Flash Messages -->
+    {% with messages = get_flashed_messages() %} {% if messages %}
+    <div class="container mx-auto mt-4">
+      {% for message in messages %}
+      <div class="bg-green-500 text-white p-4 rounded-lg shadow-md mb-4">
+        {{ message }}
+      </div>
+      {% endfor %}
+    </div>
+    {% endif %} {% endwith %}
+
+    <!-- Hero Section -->
+    <section class="text-center py-48 px-4">
+      <h2 class="text-7xl font-bold mb-6 text-gradient animate-pulse">
+        Sous-titrez vos vidéos en un clin d'œil 🚀
+      </h2>
+      <p class="mt-4 text-3xl mb-12 text-shadow">
+        Brisez la barrière de la langue avec Infrench.
+      </p>
+      <div class="flex justify-center items-center flex-wrap">
+        <img
+          src="{{ url_for('static', filename='images/mail.svg') }}"
+          alt="Email Illustration"
+          class="h-48 mr-10 mb-8 md:mb-0 animate-bounce"
+        />
+        <form
+          class="mt-8 flex flex-col md:flex-row items-center"
+          action="/"
+          method="POST"
+        >
+          <input
+            type="email"
+            name="email"
+            placeholder="Votre adresse e-mail"
+            class="p-4 w-full md:w-96 rounded-l text-gray-900 mb-4 md:mb-0"
+            required
+          />
+          <button
+            type="submit"
+            class="bg-gradient-to-r from-purple-600 to-pink-600 p-4 rounded-r text-white font-bold hover:from-purple-700 hover:to-pink-700 transition-all duration-300 w-full md:w-auto btn-glow"
+          >
+            S'inscrire à la bêta
+          </button>
+        </form>
+      </div>
+    </section>
+
+    <!-- Aperçu d'utilisation Section -->
+    <section class="py-20 bg-gray-800 bg-opacity-50">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
+        <div class="w-full md:w-1/2 text-center md:text-left">
+          <h3 class="text-5xl font-bold mb-4 text-shadow">
+            Aperçu d'utilisation
+          </h3>
+          <p class="text-xl mb-6 text-shadow">
+            Regardez cette vidéo pour voir comment utiliser Infrench. Notez que
+            ce n'est pas la version finale.
+          </p>
+        </div>
+        <div class="w-full md:w-1/2 text-center">
+          <video
+            src="{{ url_for('static', filename='videos/lavideo.mp4') }}"
+            controls
+            class="h-64 mx-auto rounded-lg shadow-lg"
+          ></video>
+        </div>
+      </div>
+    </section>
+
+    <!-- Présentation de Infrench Section -->
+    <section class="py-20">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
+        <div class="w-full md:w-1/2 text-center md:text-left">
+          <h3 class="text-5xl font-bold mb-4 text-shadow">
+            Présentation de Infrench
+          </h3>
+          <p class="text-xl mb-6 text-shadow">
+            Infrench est une application qui permet de sous-titrer vos vidéos en
+            anglais vers le français de manière rapide et efficace. Notre
+            objectif est de rendre les ressources éducatives en anglais
+            accessibles à la communauté francophone.
+          </p>
+        </div>
+        <div class="w-full md:w-1/2 text-center">
+          <img
+            src="{{ url_for('static', filename='images/video.svg') }}"
+            alt="Video Illustration"
+            class="h-64 mx-auto animate-pulse"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Qui Nous Sommes Section -->
+    <section class="py-20 bg-gray-800 bg-opacity-50">
+      <div class="max-w-6xl mx-auto flex flex-col md:flex-row items-center">
+        <div class="w-full md:w-1/2 text-center md:text-left">
+          <h3 class="text-5xl font-bold mb-4 text-shadow">Qui Nous Sommes</h3>
+          <p class="text-xl mb-6 text-shadow">
+            Infrench est créé par une équipe de développeurs étudiants en
+            informatique, spécialement pour aider ceux qui désirent apprendre à
+            accéder plus facilement aux contenus en anglais.
+          </p>
+        </div>
+        <div class="w-full md:w-1/2 text-center">
+          <img
+            src="{{ url_for('static', filename='images/developper.svg') }}"
+            alt="Teamwork Illustration"
+            class="h-64 mx-auto animate-bounce"
+          />
+        </div>
+      </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="py-8 text-center">
+      <p class="mb-4">
+        &copy; 2024 Infrench. Tous droits réservés. Fait avec 💖 par une équipe
+        passionnée.
+      </p>
+      <div class="flex justify-center space-x-4">
+        <a
+          href="https://www.instagram.com/infrenchapp/?hl=fr"
+          class="hover:text-purple-300"
+          >Instagram</a
+        >
+      </div>
+    </footer>
+  </body>
+</html>
